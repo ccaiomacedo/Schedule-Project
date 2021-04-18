@@ -15,7 +15,7 @@ import model.JavaBeans;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = { "/Controller", "/main","/insert" })
+@WebServlet(urlPatterns = { "/Controller", "/main","/insert","/select","/update" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -38,6 +38,12 @@ public class Controller extends HttpServlet {
 		//se n for ele volta pra página insert	
 		}else if(action.equals("/insert")) {
 			novoContato(request,response);
+		}else if(action.equals("/select")) {
+			listarContato(request,response);
+		}else if(action.equals("/update")){
+			editarContato(request,response);
+		}else {
+			response.sendRedirect("index.html");
 		}
 
 	}
@@ -80,7 +86,42 @@ public class Controller extends HttpServlet {
 		dao.inserirContato(contato);
 		//redirecionar pra agenda.jsp
 		response.sendRedirect("main");
-		//teste
+		
+	}
+	//Editar contatos
+	protected void listarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//recebimento do id do contato que será editado
+		String idcon = request.getParameter("idcon");
+		//setar a variável JavaBeans
+		contato.setIdcon(idcon);
+		//executar o metodo selecionarContato()
+		dao.selecionarContato(contato);
+		//setar os atributos do formulário com o conteúdo javaBeans
+		request.setAttribute("idcon", contato.getIdcon());
+		request.setAttribute("nome", contato.getNome());
+		request.setAttribute("fone", contato.getFone());
+		request.setAttribute("email", contato.getEmail());
+		//encaminhar ao documento editar.jsp
+		RequestDispatcher rd = request.getRequestDispatcher("editar.jsp");
+		rd.forward(request,response);
+	
+	}
+	//editar os contatos e salvar
+	protected void editarContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//setar variáveis javaBeans
+		contato.setIdcon(request.getParameter("idcon"));
+		contato.setNome(request.getParameter("nome"));
+		contato.setFone(request.getParameter("fone"));
+		contato.setEmail(request.getParameter("email")); 
+		//executar o metodo
+		dao.alterarContato(contato);
+		//redirecionar pra agenda.jsp(atualizando as alterações)
+		response.sendRedirect("main");
+		
 	}
 	
 }
+	
+

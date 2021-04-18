@@ -26,7 +26,8 @@
 					<th>Id</th>
 					<th>Nome</th>
 					<th>Fone</th>
-					<th>Email</th>						
+					<th>Email</th>
+					<th>Opções</th>						
 				</tr>
 			</thead>
 			
@@ -37,6 +38,8 @@
 					<td><%=lista.get(i).getNome()%></td>
 					<td><%=lista.get(i).getFone()%></td>
 					<td><%=lista.get(i).getEmail()%></td>
+					<!--Está enviando para a servlet select o parametro idcon -->
+					<td><a href="select?idcon=<%out.print(lista.get(i).getIdcon());%>" class="botao1" >Editar</a></td>
 				</tr>
 			<%} %>
 			</tbody>
