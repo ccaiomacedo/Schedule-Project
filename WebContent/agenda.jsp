@@ -38,7 +38,7 @@
 					<td><%=lista.get(i).getFone()%></td>
 					<td><%=lista.get(i).getEmail()%></td>
 				</tr>
-			<%} //teste%>
+			<%} %>
 			</tbody>
 		
 		</table>
