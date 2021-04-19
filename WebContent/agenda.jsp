@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="ISO-8859-1"%>
     <%@page import = "model.JavaBeans" %>
     <%@page import ="java.util.ArrayList" %>
@@ -39,11 +39,15 @@
 					<td><%=lista.get(i).getFone()%></td>
 					<td><%=lista.get(i).getEmail()%></td>
 					<!--Está enviando para a servlet select o parametro idcon -->
-					<td><a href="select?idcon=<%out.print(lista.get(i).getIdcon());%>" class="botao1" >Editar</a></td>
+					<td>
+						<a href="select?idcon=<%out.print(lista.get(i).getIdcon());%>" class="botao1" >Editar</a>
+						<a href="javascript:confirmar(<%=lista.get(i).getIdcon()%>)" class="botao2" >Excluir</a>
+					</td>
 				</tr>
 			<%} %>
 			</tbody>
 		
 		</table>
+		<script src="Scripts/confirmar.js"></script>
 	</body>
 </html>
